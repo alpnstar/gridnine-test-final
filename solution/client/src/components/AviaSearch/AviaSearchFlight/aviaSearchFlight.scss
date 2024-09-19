@@ -1,0 +1,164 @@
+.avia-search {
+  &__flight {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    background-color: #0087C9;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+
+    &-info {
+      width: 100%;
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 12px;
+
+      * {
+        color: #fff;
+
+      }
+    }
+
+    &-legs,
+    &-segments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    &-segments-item {
+      padding: 10px 8px;
+      border-radius: 5px;
+      background-color: #fff;
+
+    }
+
+    &-legs {
+      &-separator {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 5px 0 4px;
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+
+    &-company {
+      font-weight: bold;
+      font-size: 16px;
+
+    }
+
+    &-price {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+      text-align: right;
+
+      &-label {
+        font-size: 18px;
+
+      }
+
+      &-note {
+        font-size: 10px;
+      }
+    }
+
+    &-route {
+      display: flex;
+      align-items: center;
+      padding: 0 0 5px 10px;
+      border-bottom: 1px #A2A2A2 solid;
+      color: #555;
+      font-size: 17px;
+
+      &-departure, &-arrival {
+        margin-right: 10px;
+      }
+
+
+      &-arrow {
+        margin-right: 10px;
+        color: #999;
+        font-size: 16px;
+      }
+    }
+
+    &-departure {
+      &-abbr {
+        color: $avia-blue;
+      }
+
+    }
+
+    &-times {
+      &-list {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        padding: 0 0 5px 10px;
+      }
+
+      &-item {
+        display: flex;
+        gap: 5px;
+        color: #555;
+        font-weight: 500;
+        font-size: 17px;
+        text-align: center;
+      }
+
+      &-date {
+        margin-top: 2px;
+        color: $avia-blue;
+        font-size: 14px;
+      }
+
+      &-total {
+        display: flex;
+        flex-direction: column;
+        width: 100px;
+      }
+
+      &-count {
+        position: relative;
+        color: $avia-orange;
+
+        &::after, &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          display: block;
+          width: 220%;
+          height: 1.5px;
+          background-color: #A2A2A2;
+        }
+
+        &::after {
+          left: 115%;
+        }
+
+        &::before {
+          right: 115%;
+
+        }
+      }
+    }
+
+    &-executor {
+      display: inline-block;
+      padding: 5px 0 5px 10px;
+      color: #555;
+      font-size: 16px;
+
+    }
+
+  }
+
+}
+

@@ -1,0 +1,40 @@
+@import 'mixins';
+
+body,
+html,
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Tahoma, sans-serif;
+}
+
+body,
+html, #root, .app {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+
+.app {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  font-size: 12px;
+
+  main {
+    flex-grow: 1;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+

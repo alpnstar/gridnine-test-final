@@ -1,0 +1,50 @@
+.avia-search {
+  &__filters {
+    width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    user-select: none;
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  &__sort, &__filters-section, &__price-filter, &__airlines {
+    margin-bottom: 20px;
+  }
+
+  &__sort-option, &__filter-option, &__airlines-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    input {
+      margin-right: 10px;
+    }
+
+    label {
+      color: #333;
+      font-size: 14px;
+    }
+  }
+
+
+  &__price-filter {
+    input {
+      width: 100px;
+      margin-right: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+
+}
