@@ -9,8 +9,8 @@ export const AviaSearchFlightList: FC<IAviaSearchFlightListProps> = ({flights}) 
 
     return (
         <article className="avia-search__results">
-            {flights.map((flight, index) => <AviaSearchFlightItem key={index}
-                                                                  flightData={flight}/>)}
+            {flights.map((flight, index ) => <AviaSearchFlightItem key={index}
+                                                                         flightData={flight}/>)}
         </article>
     );
 };

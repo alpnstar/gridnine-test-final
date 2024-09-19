@@ -4,6 +4,8 @@ import {AviaSearchFlightSegmentList} from "./AviaSearchFlightSegmentList";
 
 interface IAviaSearchFlightProps {
     flightData: FlightResponse;
+
+
 }
 
 export const AviaSearchFlightItem: FC<IAviaSearchFlightProps> = ({flightData}) => {

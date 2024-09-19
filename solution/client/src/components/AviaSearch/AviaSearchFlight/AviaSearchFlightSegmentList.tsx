@@ -4,6 +4,7 @@ import {AviaSearchFlightSegmentItem} from "./AviaSearchFlightSegmentItem";
 interface IAviaSearchFlightSegmentListProps {
     leg: Leg;
     legIndex: number;
+
 }
 
 export const AviaSearchFlightSegmentList: FC<IAviaSearchFlightSegmentListProps> = ({leg, legIndex}) => {
@@ -11,7 +12,8 @@ export const AviaSearchFlightSegmentList: FC<IAviaSearchFlightSegmentListProps> 
     return (
         <div className="avia-search__flight-segments-list">
             {legIndex !== 0 && <div className="avia-search__flight-legs-separator">Обратно:</div>}
-            {leg.segments.map((item, index) => <AviaSearchFlightSegmentItem segment={item} key={index}/>)}
+            {leg.segments.map((item, index) => <AviaSearchFlightSegmentItem segment={item} leg={leg} indexElem={index}
+                                                                            key={index}/>)}
         </div>
     );
 };
