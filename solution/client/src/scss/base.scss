@@ -23,7 +23,7 @@ html, #root, .app {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  font-size: 12px;
+  font-size: mrem(12);
 
   main {
     flex-grow: 1;

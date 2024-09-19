@@ -13,7 +13,7 @@
     margin-bottom: 10px;
     color: #333;
     font-weight: bold;
-    font-size: 16px;
+    font-size: mrem(16);
   }
 
   &__sort, &__filters-section, &__price-filter, &__airlines {
@@ -31,7 +31,7 @@
 
     label {
       color: #333;
-      font-size: 14px;
+      font-size: mrem(14);
     }
   }
 
@@ -47,4 +47,11 @@
   }
 
 
+}
+@media (max-width: 430px) {
+  .avia-search {
+    &__filters {
+     width: 100%;
+    }
+  }
 }

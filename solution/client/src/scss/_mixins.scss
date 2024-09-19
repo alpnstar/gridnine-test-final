@@ -1,5 +1,6 @@
 @use "sass:math";
 
+// push-auto - отодвинуть автоматически
 @mixin push-auto {
   margin: {
     right: auto;
@@ -7,12 +8,14 @@
   }
 }
 
+// pseudo - генерация псевдоэлементов
 @mixin pseudo($display: block, $pos: absolute, $content: "") {
   content: $content;
   position: $pos;
   display: $display;
 }
 
+// breakpoints - массив с размерами для медиазапросов
 $breakpoints: (
         "phone": 400px,
         "phone-wide": 480px,
@@ -24,6 +27,7 @@ $breakpoints: (
         "desktop-wide": 1440px,
 );
 
+// mq - функция для генерации медиазапросов
 @mixin mq($width, $type: min) {
   @if map_has_key($breakpoints, $width) {
     $width: map_get($breakpoints, $width);
@@ -38,27 +42,28 @@ $breakpoints: (
   }
 }
 
-// TO %
+// TO % - функция для перевода пикселей в проценты
 @function mprc($pxOne, $pxTwo) {
   $result: math.div($pxOne, $pxTwo) * 100%;
 
   @return $result;
 }
 
-// REM
+// REM - функция для перевода пикселей в rem
 @function mrem($px) {
   $result: math.div($px, 16) + rem;
 
   @return $result;
 }
 
-// EM
+// EM - функция для перевода пикселей в em
 @function mem($px, $fs) {
   $result: math.div($px, $fs) + em;
 
   @return $result;
 }
 
+// mprcp - функция для перевода пикселей в проценты с учетом размера шрифта
 @function mprcp($pxOne, $pxTwo, $pxThree) {
   $result: math.div(math.div($pxOne, $pxTwo) * 100, 100) * $pxThree + px;
 

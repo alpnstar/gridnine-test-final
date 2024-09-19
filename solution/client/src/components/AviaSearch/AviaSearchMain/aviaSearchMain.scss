@@ -58,3 +58,17 @@
     justify-content: center;
   }
 }
+@media screen and (max-width: 768px) {
+  .avia-search {
+
+  }
+}
+@media screen and (max-width: 430px) {
+  .avia-search {
+    &__wrapper {
+      flex-direction: column;
+      padding: 5px;
+    }
+  }
+
+}
