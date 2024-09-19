@@ -25,22 +25,30 @@ const initialState: IInitialState = {
     airlines: new Set()
 };
 
-export const applyParams = createAsyncThunk<void, IApplyParamsInput>("aviaSearch/applyParams", async (payload, {dispatch}) => {
+export const applyParams = createAsyncThunk<void, IApplyParamsInput>("aviaSearch/applyParams", async (payload, {
+    dispatch,
+    getState
+}) => {
     dispatch(airSearchActions.setDefault());
+
+    if (payload.trans) {
+        if (payload.trans === "oneTrans") dispatch(airSearchActions.filterByOneTrans());
+        else if (payload.trans === "withoutTrans") dispatch(airSearchActions.filterByWithoutTrans());
+    }
+    if (+payload.minPrice !== 0) {
+        dispatch(airSearchActions.filterByMinPrice(+payload.minPrice));
+        console.log(getState());
+    }
+
+    if (+payload.maxPrice !== 0) {
+        dispatch(airSearchActions.filterByMaxPrice(+payload.maxPrice));
+    }
+    if (payload.airlines && payload.airlines.length > 0) dispatch(airSearchActions.filterByAirline(payload.airlines));
     if (payload.sortBy === "priceAsc") {
         dispatch(airSearchActions.sortByAscPrice());
     } else if (payload.sortBy === "priceDesc") {
         dispatch(airSearchActions.sortByDescPrice());
     } else dispatch(airSearchActions.sortByArrivalTime());
-    if (payload.trans) {
-        if (payload.trans === "oneTrans") dispatch(airSearchActions.filterByOneTrans());
-        else if (payload.trans === "withoutTrans") dispatch(airSearchActions.filterByWithoutTrans());
-    }
-    if (payload.maxPrice && +payload.maxPrice !== 0)
-        dispatch(airSearchActions.filterByMaxPrice(+payload.maxPrice));
-    if (payload.minPrice && +payload.minPrice !== 0)
-        dispatch(airSearchActions.filterByMinPrice(+payload.minPrice));
-    if (payload.airlines && payload.airlines.length > 0) dispatch(airSearchActions.filterByAirline(payload.airlines));
     dispatch(airSearchActions.getAllFilteredAirlines());
 
 });
@@ -73,24 +81,24 @@ const airSearchSlice = createSlice({
     initialState,
     reducers: {
         sortByAscPrice(state) {
-            if (state.data)
+            if (state.filteredAndSortedData)
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.sort((a, b) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.sort((a, b) =>
                             +a.flight.price.total.amount - +b.flight.price.total.amount),
                     }
                 };
 
         },
         sortByDescPrice(state) {
-            if (state.data)
+            if (state.filteredAndSortedData)
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.sort((a, b) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.sort((a, b) =>
                             +b.flight.price.total.amount - +a.flight.price.total.amount),
                     }
                 };
@@ -98,12 +106,12 @@ const airSearchSlice = createSlice({
 
         },
         sortByArrivalTime(state) {
-            if (state.data)
+            if (state.filteredAndSortedData)
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.sort((a, b) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.sort((a, b) =>
                             +a.flight.legs[0].duration - +b.flight.legs[0].duration),
                     }
                 };
@@ -112,12 +120,12 @@ const airSearchSlice = createSlice({
         },
         filterByAirline(state, action: PayloadAction<string[]>) {
 
-            if (state.data) {
+            if (state.filteredAndSortedData) {
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.filter((flight) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.filter((flight) =>
                             action.payload.includes(flight.flight.carrier.caption))
                     }
                 };
@@ -126,12 +134,12 @@ const airSearchSlice = createSlice({
         },
         filterByMaxPrice(state, action: PayloadAction<number>) {
 
-            if (state.data) {
+            if (state.filteredAndSortedData) {
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.filter((flight) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.filter((flight) =>
                             +flight.flight.price.total.amount <= action.payload)
                     }
                 };
@@ -139,12 +147,12 @@ const airSearchSlice = createSlice({
         },
         filterByMinPrice(state, action: PayloadAction<number>) {
 
-            if (state.data) {
+            if (state.filteredAndSortedData) {
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.filter((flight) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.filter((flight) =>
                             +flight.flight.price.total.amount >= action.payload)
                     }
                 };
@@ -152,12 +160,12 @@ const airSearchSlice = createSlice({
         },
         filterByOneTrans(state) {
 
-            if (state.data) {
+            if (state.filteredAndSortedData) {
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.filter((flight) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.filter((flight) =>
                             flight.flight.legs[0].segments.length === 2)
                     }
                 };
@@ -165,12 +173,12 @@ const airSearchSlice = createSlice({
         },
         filterByWithoutTrans(state) {
 
-            if (state.data) {
+            if (state.filteredAndSortedData) {
                 state.filteredAndSortedData = {
-                    ...state.data,
+                    ...state.filteredAndSortedData,
                     result: {
-                        ...state.data.result,
-                        flights: state.data.result.flights.filter((flight) =>
+                        ...state.filteredAndSortedData.result,
+                        flights: state.filteredAndSortedData.result.flights.filter((flight) =>
                             flight.flight.legs[0].segments.length === 1)
                     }
                 };
