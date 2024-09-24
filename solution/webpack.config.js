@@ -69,11 +69,7 @@ module.exports = {
                     {
                         loader: "sass-loader",
                         options: {
-                            additionalData:
-                                `
-                                @import '${path.resolve(__dirname, 'client/src/scss')}/vars';
-                                @import '${path.resolve(__dirname, 'client/src/scss')}/mixins';
-                                `,
+
 
                             sassOptions: {
                                 includePaths: [path.resolve(__dirname, 'client/src/scss')],

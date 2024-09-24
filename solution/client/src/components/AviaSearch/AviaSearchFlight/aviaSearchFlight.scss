@@ -1,3 +1,5 @@
+@import "../../../scss/mixins";
+
 .avia-search {
   &__flight {
     display: flex;
@@ -91,7 +93,7 @@
 
     &-departure {
       &-abbr {
-        color: $avia-blue;
+        color: #1987C9;
       }
 
     }
@@ -115,7 +117,7 @@
 
       &-date {
         margin-top: 2px;
-        color: $avia-blue;
+        color: #1987C9;
         font-size: mrem(14);
       }
 
@@ -127,7 +129,7 @@
 
       &-count {
         position: relative;
-        color: $avia-orange;
+        color: #FF8E1D;
 
         &::after, &::before {
           content: '';
